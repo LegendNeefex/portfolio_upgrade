@@ -1,26 +1,83 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+    --first-color:#127D68;
+    --secondary-color:#122C28;
+    --text-first: #1ABC9C;
+    --text-secondary: #ECF0F1;
+    --other-white: #ffffff;
+    --text-orange: #A94627;
+    --text-bluey: #0D47A1;
+    --button-first:#1ABC9C;
+    --button-second:#367BE4;
+    --section-primary:#414141;
+    --section-secondary:#545454;
+    --frame-primary:#222121;
+    --passport-background:#252222;
+    --shadow-soft: 2px 2px 20px 4px rgba(0, 0, 0, 0.25);
+
+                
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+@theme {
+  /* Color styles */
+  --color-primary: var(--first-color);
+  --color-secondary: var(--secondary-color);
+  --color-btn-first: var(--button-first);
+  --color-btn-second: var(--button-second);
+  --color-neutral-white: var(--other-white);
+  --color-dark-orange: var(--text-orange);
+  --color-dark-bluey: var(--text-bluey);
+  --color-section-primary: var(--section-primary);
+  --color-section-secondary: var(--section-secondary);
+  --color-passport-bg: var(--passport-background);
+  --color-frame-primary: var(--frame-primary);
+  --color-accent: var(--text-first);
+  --color-muted: var(--text-secondary);
+  --box-shadow: var(--shadow-soft);
+
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer utilities {
+  .font-lato {
+    font-family: var(--font-lato), sans-serif;
+  }
+
+  .font-poppins {
+    font-family: var(--font-poppins), sans-serif;
+  }
+
+  .font-montserrat {
+    font-family: var(--font-montserrat), sans-serif;
+  }
+
+  .font-outfit {
+    font-family: var(--font-outfit), sans-serif;
+  }
+
+  .font-openSans {
+    font-family: var(--font-openSans), sans-serif;
+  }
+
+  .shadow-frame {
+    box-shadow: var(--box-shadow);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@keyframes fade {
+
+    from{
+        opacity:0;
+        transform:translateY(100px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+
+}
+
+.animate-fade{
+    animation:fade .35s ease-in-out;
 }
