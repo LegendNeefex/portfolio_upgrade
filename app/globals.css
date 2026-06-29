@@ -64,6 +64,12 @@
   }
 }
 
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
 @keyframes fade {
 
     from{

@@ -11,10 +11,10 @@ function Footer(params) {
                     </div>
                     <div className="flex gap-6">
                         <Link href="https://github.com/LegendNeefex" target='_blank'>
-                            <img className="w-8 h-8 object-cover" src="Image/github.png" alt="GitHub" />
+                            <img className="w-8 h-8 object-cover" src="/Image/github.png" alt="GitHub" />
                         </Link>
                         <Link href="https://www.linkedin.com/in/neefex" target='_blank'>
-                            <img className="w-8 h-8 object-cover" src="Image/linkedin.png" alt="LinkedIn" />
+                            <img className="w-8 h-8 object-cover" src="/Image/linkedin.png" alt="LinkedIn" />
                         </Link>
                     </div>
                 </div>
@@ -24,4 +24,4 @@ function Footer(params) {
     )
 }
 
-export default Footer
+export default Footer;

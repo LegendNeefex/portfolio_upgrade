@@ -30,7 +30,7 @@ function NavBar() {
                     }
                 },
                 {
-                    rootMargin: "-120px 0px -55% 0px",
+                    rootMargin: "-110px 0px -55% 0px",
                     threshold: 0    
                 }
             );

@@ -7,6 +7,7 @@ const stateHandler = createContext()
 export const ApiProvider = ({children}) => {
     const [overlay,setOverlay] = useState(false)
     const [burgerIcon,setBurgerIcon] = useState(false)
+    const [selectedProject, setSelectedProject] = useState(null)
     // const [theme,setTheme] = useState(() => {
     //     // Retrieve the theme from localStorage when the app loads
     //     const savedTheme = localStorage.getItem('mode');
@@ -33,11 +34,13 @@ export const ApiProvider = ({children}) => {
     const stateData ={
         overlay,
         burgerIcon,
+        selectedProject,
         // theme,
         setOverlay,
         ContactOverlayHandler,
         // themeHandler,
         setBurgerIcon,
+        setSelectedProject,
         burgerIconHandler
     }
 

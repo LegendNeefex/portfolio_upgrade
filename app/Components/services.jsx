@@ -50,7 +50,7 @@ function Services(params) {
                 <div className="relative">
                     <div className="flex">
                         <div className="flex w-10 h-0.5 bg-linear-to-r from-btn-first to-btn-second rounded-0 relative top-2.5"></div>
-                        <p className="px-2.5 text-[16px] font-semibold text-muted font-montserrat">MY SERVICES</p>
+                        <p className="px-2.5 text-[16px] font-medium text-muted font-montserrat">MY SERVICES</p>
                     </div>
                     <h2 className="text-[24px] font-semibold text-muted font-montserrat mb-2">What can i do ?</h2>
                     <div className="flex gap-7 absolute right-0 -top-5 z-1">

@@ -1,9 +1,10 @@
 
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { supabase } from "../lib/supabase";
 import { useRouter } from "next/navigation";
+import stateHandler from "../Context/stateHandler";
 import Image from "next/image";
 import StackTags from "../Shared/stackTags";
 import { FaEye } from "react-icons/fa";
@@ -11,7 +12,7 @@ import { FaEye } from "react-icons/fa";
 function Projects() {
     const router = useRouter();
 
-
+    const { selectedProject, setSelectedProject } = useContext(stateHandler);
     const [openingProject, setOpeningProject] = useState(null);
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -39,13 +40,16 @@ function Projects() {
         fetchProjects();
     }, []);
 
-    const openProject = (slug) => {
+    const openProject = (item) => {
+        // console.log(item);
+        
         if (openingProject) return;
-
-        setOpeningProject(slug);
-
+        setOpeningProject(item.slug);
+        setSelectedProject(item)
+        // console.log("selectedItem",item);
+        
         setTimeout(() => {
-            router.push(`/projects/${slug}`);
+            router.push(`/projects/${item.slug}`);
         }, 1300);
     };
 
@@ -110,8 +114,8 @@ function Projects() {
                     <div className="flex">
                         <div className="flex w-10 h-0.5 bg-linear-to-r from-btn-first to-btn-second relative top-2.5"></div>
 
-                        <p className="px-2.5 text-[16px] font-semibold text-muted font-montserrat">
-                            My Projects
+                        <p className="px-2.5 text-[16px] font-medium text-muted font-montserrat">
+                            MY PROJECTS
                         </p>
                     </div>
 
@@ -142,8 +146,7 @@ function Projects() {
                     </div>
                 </div>
 
-                <div className="mt-8 mb-14">
-
+                <div className="mt-8 mb-14 ">
                     {loading ? (
 
                         <div className="flex gap-4 flex-wrap">
@@ -197,13 +200,14 @@ function Projects() {
                                                         key={index}
                                                         text={tag}
                                                         color={getTagColor(item.slug,index)}
+                                                        tagColor={"text-[#DDDEDE]"}
                                                     />
                                                 ))}
 
                                             </div>
 
                                             <div
-                                                onClick={() => openProject(item.slug)}
+                                                onClick={() => openProject(item)}
                                                 className="bg-neutral-white rounded-full w-35 h-15 shadow-frame relative overflow-hidden cursor-pointer"
                                             >
 

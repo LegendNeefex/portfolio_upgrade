@@ -40,24 +40,23 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <ApiProvider>
-      <html lang="en">
-        <body
-          className={`${outfit.variable} ${openSans.variable} ${montserrat.variable} ${lato.variable} ${poppins.variable} antialiased`}
-        >
+    <html lang="en">
+      <body
+        className={`${outfit.variable} ${openSans.variable} ${montserrat.variable} ${lato.variable} ${poppins.variable} antialiased`}
+      >
+        <ApiProvider> 
           <svg width="0" height="0" className="absolute">
             <defs>
               <linearGradient id="iconGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stopColor="#1ABC9C" />
-                  <stop offset="100%" stopColor="#367BE4" />
+                <stop offset="0%" stopColor="#1ABC9C" />
+                <stop offset="100%" stopColor="#367BE4" />
               </linearGradient>
             </defs>
           </svg>
-          
           {children}
           <ScrollToTop />
-        </body>
-      </html>
-    </ApiProvider>
+        </ApiProvider>
+      </body>
+    </html>
   );
 }
