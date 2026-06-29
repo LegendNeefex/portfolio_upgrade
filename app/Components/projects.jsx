@@ -188,7 +188,6 @@ function Projects() {
                                     className="
                                         bg-[#DDDEDE]
                                         w-full
-                                        w-full
                                         max-w-none
                                         justify-self-stretch
                                         rounded-[30px]
@@ -197,7 +196,7 @@ function Projects() {
                                         pb-8
                                         flex
                                         flex-col
-                                        min-h-[650px]
+                                        min-h-162.5
                                     "
                                 >
 
@@ -207,7 +206,7 @@ function Projects() {
                                         width={300}
                                         height={300}
                                         quality={100}
-                                        className="rounded-[30px] w-full h-[250px] object-cover"
+                                        className="rounded-[30px] w-full h-62.5 object-cover"
                                     />
 
                                     <div className="flex flex-col flex-1 mt-6">

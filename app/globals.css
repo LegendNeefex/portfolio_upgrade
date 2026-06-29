@@ -68,7 +68,13 @@
   html {
     scroll-behavior: smooth;
   }
+
+  /* Prevent mobile/desktop zoom quirks caused by missing viewport meta */
+  body {
+    margin: 0;
+  }
 }
+
 
 @keyframes fade {
 
