@@ -17,9 +17,13 @@ import PageLoader from "@/app/Components/pageLoader";
 
 function ProjectPage() {
     const [activeSection, setActiveSection] = useState("");
-    const { selectedProject, setSelectedProject } = useContext(stateHandler)
+    const ctx = useContext(stateHandler)
+    const { selectedProject, setSelectedProject, routeLoading, setRouteLoading } = ctx || {}
+    const [loading, setLoading] = useState(!selectedProject);
+
+
+
     const { slug } = useParams()
-    const [loading, setLoading] = useState(!selectedProject)
     const [loaded, setLoaded] = useState(false);
     const [assets, setAssets] = useState([]);
     const [selectedAsset, setSelectedAsset] = useState(null);
@@ -67,28 +71,42 @@ function ProjectPage() {
         };
     }, [])
 
-    useEffect(() => {
-        if (!selectedProject) {
-            async function backUpFetch() {
-                const { data, error } = await supabase
-                    .from("projects")
-                    .select("*")
-                    .eq("slug", slug)
-                    .single();
+    
 
-                if (error) {
-                    console.log(error);
-                } else {
-                    setSelectedProject(data);
-                    fetchAssets(data.slug);
-                }
+    useEffect(() => {
+        async function loadProject() {
+            setLoading(true);
+            if (setRouteLoading) setRouteLoading(true);
+            setLoaded(false);
+
+
+            if (selectedProject?.slug === slug) {
+                await fetchAssets(selectedProject.slug);
                 setLoading(false);
+                if (setRouteLoading) setRouteLoading(false);
+                return;
             }
-            backUpFetch();
-        } else {
-            setLoading(false);
-            fetchAssets(selectedProject.slug);
+
+
+            const { data, error } = await supabase
+                .from("projects")
+                .select("*")
+                .eq("slug", slug)
+                .single();
+
+            if (error) {
+                console.log(error);
+                return;
+            }
+
+            setSelectedProject(data);
+
+            await fetchAssets(data.slug);
         }
+
+
+        loadProject();
+
     }, [slug])
 
     async function fetchAssets(projectSlug) {
@@ -105,7 +123,34 @@ function ProjectPage() {
                     .getPublicUrl(`${projectSlug}/assets/${file.name}`);
                 return { url: urlData.publicUrl, name: file.name };
             });
+            // Wait until ALL media in the gallery are ready (images + videos)
+            await Promise.all(
+                urls.map(({ url, name }) =>
+                    new Promise((resolve) => {
+                        const isVideo =
+                            name.endsWith(".mp4") || name.endsWith(".mov") || name.endsWith(".webm");
+
+                        if (isVideo) {
+                            // Avoid `new window.HTMLVideoElement()` (some browsers throw Illegal constructor)
+                            const vid = document.createElement('video');
+                            vid.preload = 'metadata';
+                            vid.onloadedmetadata = () => resolve();
+                            vid.onerror = () => resolve();
+                            vid.src = url;
+                            return;
+                        }
+
+                        const img = new window.Image();
+                        img.onload = () => resolve();
+                        img.onerror = () => resolve();
+                        img.src = url;
+                    })
+                )
+            );
             setAssets(urls);
+            setLoading(false);
+            setRouteLoading(false);
+
         }
     }
         
@@ -132,7 +177,8 @@ function ProjectPage() {
         "bg-neutral-white text-[#127D68]",
     ];
 
-    if (loading) return <PageLoader text="Loading Project" controlled={true} />
+    if (loading || routeLoading) return <PageLoader text="Loading Project" controlled={true} />
+
     
     return (
         <>
@@ -265,7 +311,8 @@ function ProjectPage() {
             {/* section 3 */}
             <div id="gallery" className="bg-[#414141]">
                 <div className="w-[95%] m-auto pt-18 pb-14">
-                    <div className="grid grid-cols-3 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+
                         {assets.map((asset, index) => {
                             const isVideo =
                                 asset.name.endsWith(".mp4") ||
@@ -360,24 +407,3 @@ function ProjectPage() {
 }
 
 export default ProjectPage;
-
-// app/projects/[slug]/page.jsx
-export async function generateMetadata({ params }) {
-    const { slug } = await params;
-
-    const { data } = await supabase
-        .from("projects")
-        .select("project_title, project_overview, thumbnail_url")
-        .eq("slug", slug)
-        .single();
-
-    return {
-        title: data?.project_title, // becomes "Shupp | Ifeoluwa Oladepo" via template
-        description: data?.project_overview,
-        openGraph: {
-            title: data?.project_title,
-            description: data?.project_overview,
-            images: [{ url: data?.thumbnail_url }],
-        },
-    };
-}

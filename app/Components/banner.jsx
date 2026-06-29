@@ -9,8 +9,9 @@ function Banner() {
 
   return (
         <div className="bg-linear-to-r from-secondary min-h-screen to-primary overflow-hidden " id='home'>
-            <div className="flex justify-between items-center w-[95%] m-auto pt-30 relative mt-48" >
-                <div className=" text-muted">
+            <div className="flex flex-col md:flex-row md:justify-between md:items-center w-[95%] m-auto pt-20 md:pt-30 relative mt-28 md:mt-48" >
+                <div className=" text-muted w-full md:w-auto">
+
                     <h3 className='text-[24px] font-lato font-semibold text-accent'>Hello, My name is</h3>
                     <h2 className='text-[60px] font-montserrat font-bold py-1'>Ifeoluwa Oladepo</h2>
                     <div className="flex items-center">
@@ -28,7 +29,8 @@ function Banner() {
                         width={800}
                         height={500}
                         alt="ifeoluwa oladepo's picture"
-                        className="absolute right-1 -top-25 "
+                        className="absolute right-1 -top-25 md:right-1 md:-top-25"
+
                         quality={100} 
                         unoptimized={true} 
                         priority

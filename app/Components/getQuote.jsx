@@ -172,7 +172,8 @@ function GetQuote() {
                 </div>
 
                 {/* Main content */}
-                <div className="flex justify-center mt-30 gap-70">
+                <div className="flex justify-center mt-30 gap-70 flex-col md:flex-row">
+
 
                     {/* Sticky Cards */}
                     <div className="flex flex-col gap-7 relative">
@@ -189,7 +190,7 @@ function GetQuote() {
                     </div>
 
                     {/* Form */}
-                    <div className="bg-[#E3F2FD] flex flex-col gap-6 border-3 border-[#A0A9B1] rounded-[60px] py-8 px-8 w-[45%]">
+                    <div className="bg-[#E3F2FD] flex flex-col gap-6 border-3 border-[#A0A9B1] rounded-[60px] py-8 px-8 w-full md:w-[45%]">
                         <div className="flex flex-col items-center gap-4 w-[80%] m-auto">
                             <p className="font-openSans font-bold text-[#2D2D2D] text-[16px] text-center">
                                 Please, provide details about your projects so we can help you better.

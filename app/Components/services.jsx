@@ -9,7 +9,7 @@ function Services(params) {
     return (
         <div className="bg-section-secondary py-8" id="services">
             <div className="flex flex-col relative m-auto w-[95%]" >
-                <div className="flex flex-col justify-center h-full gap-70 absolute -left-5 z-1">
+                <div className="hidden md:flex flex-col justify-center h-full gap-70 absolute -left-5 z-1">
                     <Image 
                         src="/Image/watermarks/ps 1.png" 
                         alt="Photoshop Image" 
@@ -28,7 +28,7 @@ function Services(params) {
                         unoptimized={true} 
                     />
                 </div>
-                <div className="flex flex-col justify-center h-full gap-70 absolute -right-5 z-1">
+                <div className="hidden md:flex flex-col justify-center h-full gap-70 absolute -right-5 z-1">
                     <Image 
                         src="/Image/watermarks/code 1.png" 
                         alt="Code Image" 
@@ -72,7 +72,7 @@ function Services(params) {
                     </div>
                 </div>
                 <div className="flex flex-col w-[85%] m-auto py-8 relative">
-                    <div className="flex justify-between gap-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                         <div className="bg-passport-bg p-8 rounded-2xl text-center items-center justify-center flex gap-6 flex-col cursor-pointer hover:scale-99">
                             <MdEdit className="text-[24px] text-primary " />
                             <div className="flex flex-col gap-3">
@@ -96,7 +96,7 @@ function Services(params) {
                         </div>
                     </div>
 
-                    <div className="flex justify-between gap-4 mt-4 ">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4 ">
                         <div className="bg-passport-bg p-8 rounded-2xl text-center flex flex-col items-center gap-6 cursor-pointer hover:scale-99">
                             <FaBriefcase className="text-[30px] text-primary " />
                             <div className="flex flex-col gap-3">

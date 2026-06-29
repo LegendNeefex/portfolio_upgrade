@@ -8,7 +8,7 @@ import MeCards from "../Shared/meCards";
 export default function AboutMe() {
    return (
     <div className="bg-section-primary transition-colors duration-1000 ease-in-out py-14" id="about-me">
-        <div className="grid grid-cols-[2fr_1fr] gap-10 w-[95%] m-auto">
+        <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-10 w-[95%] m-auto">
             
             {/* Left side */}
             <div className="flex flex-col gap-4">

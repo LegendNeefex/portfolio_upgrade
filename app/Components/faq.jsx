@@ -51,7 +51,7 @@ function FAQ() {
 
     return (
         <div id="faq" className="bg-section-secondary relative overflow-hidden">
-            <div className='absolute -top-10 left-20 bg-[#0F6A58] opacity-25 w-300  h-300 rounded-full blur-3xl z-0'></div>
+            <div className='absolute -top-10 left-20 bg-[#0F6A58] opacity-25 w-64 h-64 md:w-300 md:h-300 rounded-full blur-3xl z-0'></div>
             <div className="w-[95%] m-auto py-10 relative z-10">
                 
                 <div className="w-[50%] m-auto flex flex-col gap-6 justify-center items-center text-center">

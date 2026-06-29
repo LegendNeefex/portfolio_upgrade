@@ -5,6 +5,7 @@ import { useState, useEffect, useContext } from "react";
 import { supabase } from "../lib/supabase";
 import { useRouter } from "next/navigation";
 import stateHandler from "../Context/stateHandler";
+
 import Image from "next/image";
 import StackTags from "../Shared/stackTags";
 import { FaEye } from "react-icons/fa";
@@ -12,7 +13,8 @@ import { FaEye } from "react-icons/fa";
 function Projects() {
     const router = useRouter();
 
-    const { selectedProject, setSelectedProject } = useContext(stateHandler);
+    const { selectedProject, setSelectedProject, setRouteLoading } = useContext(stateHandler);
+
     const [openingProject, setOpeningProject] = useState(null);
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -41,16 +43,18 @@ function Projects() {
     }, []);
 
     const openProject = (item) => {
-        // console.log(item);
-        
         if (openingProject) return;
+
         setOpeningProject(item.slug);
-        setSelectedProject(item)
-        // console.log("selectedItem",item);
-        
-        setTimeout(() => {
-            router.push(`/projects/${item.slug}`);
-        }, 1300);
+
+        // keep project in context
+        setSelectedProject(item);
+
+
+        // trigger loader for route navigation
+        setRouteLoading(true);
+
+        router.push(`/projects/${item.slug}`);
     };
 
     const selectFilter = (option) => {
@@ -125,15 +129,15 @@ function Projects() {
 
                     <div className="flex gap-3 flex-wrap">
 
-                        {["ALL", "UI/UX", "WEBSITES", "GRAPHICS"].map((option) => (
+                        {["ALL","UI/UX","WEBSITES","GRAPHICS"].map((option)=>(
 
                             <button
                                 key={option}
-                                onClick={() => selectFilter(option)}
+                                onClick={()=>selectFilter(option)}
                                 className={`border-2 rounded-full px-5 py-2 mt-3 font-semibold transition-all duration-300 cursor-pointer
 
                                 ${
-                                    filter.projectFilter === option
+                                    filter.projectFilter===option
                                         ? "bg-primary text-white border-transparent"
                                         : "border-primary text-[#DDDEDE] hover:bg-primary hover:border-transparent"
                                 }`}
@@ -146,30 +150,55 @@ function Projects() {
                     </div>
                 </div>
 
-                <div className="mt-8 mb-14 ">
+                <div className="mt-8 mb-14">
+
                     {loading ? (
 
-                        <div className="flex gap-4 flex-wrap">
+                        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-10">
+
                             {[1,2,3].map((i)=>(
+
                                 <div
                                     key={i}
-                                    className="bg-[#DDDEDE] w-100 h-60 rounded-3xl animate-pulse opacity-40"
+                                    className="bg-[#DDDEDE] rounded-[30px] h-64 animate-pulse opacity-40"
                                 />
+
                             ))}
+
                         </div>
 
                     ) : (
 
                         <div
                             key={filter.projectFilter}
-                                className="flex flex-wrap justify-start gap-10 animate-fade"
-                            >
+                            className="
+                                grid
+                                grid-cols-1
+                                md:grid-cols-2
+                                xl:grid-cols-3
+                                gap-10
+                                animate-fade
+                            "
+                        >
 
                             {filteredProjects.map((item)=>(
 
                                 <div
                                     key={item.id}
-                                    className="bg-[#DDDEDE] w-110 min-h-162.5 rounded-[30px] px-4 pt-4 pb-8 flex flex-col"
+                                    className="
+                                        bg-[#DDDEDE]
+                                        w-full
+                                        w-full
+                                        max-w-none
+                                        justify-self-stretch
+                                        rounded-[30px]
+                                        px-4
+                                        pt-4
+                                        pb-8
+                                        flex
+                                        flex-col
+                                        min-h-[650px]
+                                    "
                                 >
 
                                     <Image
@@ -178,7 +207,7 @@ function Projects() {
                                         width={300}
                                         height={300}
                                         quality={100}
-                                        className="rounded-[30px] w-full h-62.5 object-cover"
+                                        className="rounded-[30px] w-full h-[250px] object-cover"
                                     />
 
                                     <div className="flex flex-col flex-1 mt-6">
@@ -196,27 +225,30 @@ function Projects() {
                                             <div className="flex gap-3 flex-wrap">
 
                                                 {item.miniTags?.map((tag,index)=>(
+
                                                     <StackTags
                                                         key={index}
                                                         text={tag}
                                                         color={getTagColor(item.slug,index)}
-                                                        tagColor={"text-[#DDDEDE]"}
+                                                        tagColor="text-[#DDDEDE]"
                                                     />
+
                                                 ))}
 
                                             </div>
 
                                             <div
-                                                onClick={() => openProject(item)}
+                                                onClick={()=>openProject(item)}
                                                 className="bg-neutral-white rounded-full w-35 h-15 shadow-frame relative overflow-hidden cursor-pointer"
                                             >
 
                                                 <p
-                                                    className={`absolute left-5 top-1/2 -translate-y-1/2 font-openSans font-semibold text-[18px] text-[#2F2D2D] transition-all ease-in-out duration-700
+                                                    className={`absolute left-5 top-1/2 -translate-y-1/2 font-openSans font-semibold text-[18px] text-[#2F2D2D] transition-all duration-700
+
                                                     ${
-                                                        openingProject === item.slug
-                                                            ? "opacity-0 scale-75 translate-x-4"
-                                                            : "opacity-100 scale-100 translate-x-0"
+                                                        openingProject===item.slug
+                                                        ? "opacity-0 scale-75 translate-x-4"
+                                                        : "opacity-100 scale-100 translate-x-0"
                                                     }`}
                                                 >
                                                     View
@@ -224,17 +256,26 @@ function Projects() {
 
                                                 <div
                                                     className={`absolute top-1/2 right-1 -translate-y-1/2
-                                                    h-13 w-13 rounded-full bg-[#2F2D2D]
-                                                    flex items-center justify-center
-                                                    transition-transform duration-1200
+                                                    h-13
+                                                    w-13
+                                                    rounded-full
+                                                    bg-[#2F2D2D]
+                                                    flex
+                                                    items-center
+                                                    justify-center
+                                                    transition-transform
+                                                    duration-1200
                                                     ease-[cubic-bezier(0.22,1,0.36,1)]
+
                                                     ${
-                                                        openingProject === item.slug
-                                                            ? "-translate-x-20"
-                                                            : "translate-x-0"
+                                                        openingProject===item.slug
+                                                        ? "-translate-x-20"
+                                                        : "translate-x-0"
                                                     }`}
                                                 >
+
                                                     <FaEye className="text-white text-[20px]" />
+
                                                 </div>
 
                                             </div>
@@ -256,6 +297,7 @@ function Projects() {
             </div>
         </div>
     );
+
 }
 
 export default Projects;
