@@ -2,6 +2,8 @@ import { Open_Sans, Outfit, Montserrat, Lato, Poppins } from "next/font/google";
 import "./globals.css";
 import { ApiProvider } from "./Context/stateHandler";
 import ScrollToTop from "./Components/scrollToTop";
+import PageLoader from "./Components/pageLoader";
+import StructuredData from "./Components/structuredData";
 
 const openSans = Open_Sans({
   variable: "--font-openSans",
@@ -34,8 +36,46 @@ const lato = Lato({
 });
 
 export const metadata = {
-  title: "Ifeoluwa Oladepo || A creative Designer & Full stack developer",
-  description: "Website Portfolio for Ifeoluwa Oladepo, a creative designer and full-stack developer. Showcasing skills in UI/UX design, front-end and back-end development, and more.",
+    alternates: {
+      canonical: "https://yourportfolio.com",
+    },
+    title: {
+        default: "Ifeoluwa Oladepo | Full-Stack Developer & UI/UX Designer",
+        template: "%s | Ifeoluwa Oladepo"
+    },
+    description: "Full-Stack Web Developer and UI/UX Designer based in Lagos, Nigeria. Specializing in PERN Stack, React, Next.js, and pixel-perfect digital experiences.",
+    keywords: [
+        "Full Stack Developer Nigeria",
+        "UI/UX Designer Lagos",
+        "React Developer Nigeria",
+        "Next.js Developer",
+        "PERN Stack Developer",
+        "Web Developer Portfolio",
+        "Ifeoluwa Oladepo",
+        "Neefex"
+    ],
+    metadataBase: new URL("https://yourportfolio.com"),
+    openGraph: {
+        title: "Ifeoluwa Oladepo | Full-Stack Developer & UI/UX Designer",
+        description: "Full-Stack Web Developer and UI/UX Designer based in Lagos, Nigeria.",
+        url: "https://yourportfolio.com",
+        siteName: "Neefex Portfolio",
+        images: [{ url: "/Image/og-image.png", width: 1200, height: 630, alt: "Ifeoluwa Oladepo Portfolio" }],
+        locale: "en_US",
+        type: "website",
+    },
+    twitter: {
+        card: "summary_large_image",
+        title: "Ifeoluwa Oladepo | Full-Stack Developer & UI/UX Designer",
+        description: "Full-Stack Web Developer and UI/UX Designer based in Lagos, Nigeria.",
+        images: ["/Image/og-image.png"],
+    },
+    robots: { index: true, follow: true, googleBot: { index: true, follow: true } },
+    authors: [{ name: "Ifeoluwa Oladepo", url: "https://yourportfolio.com" }],
+    creator: "Ifeoluwa Oladepo",
+    verification: {
+        google: "your-google-verification-code", // from Google Search Console
+    }
 };
 
 export default function RootLayout({ children }) {
@@ -45,6 +85,8 @@ export default function RootLayout({ children }) {
         className={`${outfit.variable} ${openSans.variable} ${montserrat.variable} ${lato.variable} ${poppins.variable} antialiased`}
       >
         <ApiProvider> 
+          <PageLoader />
+          <StructuredData />
           <svg width="0" height="0" className="absolute">
             <defs>
               <linearGradient id="iconGradient" x1="0%" y1="0%" x2="100%" y2="0%">
