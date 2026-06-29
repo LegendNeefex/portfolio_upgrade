@@ -2,9 +2,6 @@
 const nextConfig = {
   /* config options here */
   images: {
-    turbopack: {
-        root: __dirname,
-    },
     unoptimized: true,
     qualities: [100,75,50,25],
     remotePatterns: [

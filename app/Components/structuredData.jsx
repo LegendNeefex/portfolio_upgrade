@@ -5,8 +5,8 @@ export default function StructuredData() {
         "name": "Ifeoluwa Oladepo",
         "alternateName": "Neefex",
         "jobTitle": "Full-Stack Developer & UI/UX Designer",
-        "url": "https://yourportfolio.com",
-        "image": "https://yourportfolio.com/Image/Pic.png",
+        "url": "https://neefex.vercel.app",
+        "image": "https://neefex.vercel.app/Image/Pic.png",
         "email": "mhedheyghold12@gmail.com",
         "address": {
             "@type": "PostalAddress",
@@ -19,7 +19,8 @@ export default function StructuredData() {
         ],
         "knowsAbout": [
             "React.js", "Next.js", "Node.js",
-            "PostgreSQL", "UI/UX Design", "Figma"
+            "PostgreSQL", "UI/UX Design", "Figma", "Adobe Photoshop", "Front End Developer",
+            "Graphics Designer","Canva","Express.js", "Server Configuration"
         ]
     };
 
@@ -27,7 +28,7 @@ export default function StructuredData() {
         "@context": "https://schema.org",
         "@type": "WebSite",
         "name": "Neefex Portfolio",
-        "url": "https://yourportfolio.com",
+        "url": "https://neefex.vercel.app",
         "description": "Portfolio of Ifeoluwa Oladepo, Full-Stack Developer and UI/UX Designer",
         "author": { "@type": "Person", "name": "Ifeoluwa Oladepo" }
     };

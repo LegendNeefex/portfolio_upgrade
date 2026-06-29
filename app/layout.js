@@ -37,7 +37,7 @@ const lato = Lato({
 
 export const metadata = {
     alternates: {
-      canonical: "https://yourportfolio.com",
+      canonical: "https://neefex.vercel.app",
     },
     title: {
         default: "Ifeoluwa Oladepo | Full-Stack Developer & UI/UX Designer",
@@ -50,15 +50,17 @@ export const metadata = {
         "React Developer Nigeria",
         "Next.js Developer",
         "PERN Stack Developer",
+        "Front End Developer",
+        "Graphics Designer",
         "Web Developer Portfolio",
         "Ifeoluwa Oladepo",
         "Neefex"
     ],
-    metadataBase: new URL("https://yourportfolio.com"),
+    metadataBase: new URL("https://neefex.vercel.app"),
     openGraph: {
         title: "Ifeoluwa Oladepo | Full-Stack Developer & UI/UX Designer",
         description: "Full-Stack Web Developer and UI/UX Designer based in Lagos, Nigeria.",
-        url: "https://yourportfolio.com",
+        url: "https://neefex.vercel.app",
         siteName: "Neefex Portfolio",
         images: [{ url: "/Image/og-image.png", width: 1200, height: 630, alt: "Ifeoluwa Oladepo Portfolio" }],
         locale: "en_US",
@@ -71,7 +73,7 @@ export const metadata = {
         images: ["/Image/og-image.png"],
     },
     robots: { index: true, follow: true, googleBot: { index: true, follow: true } },
-    authors: [{ name: "Ifeoluwa Oladepo", url: "https://yourportfolio.com" }],
+    authors: [{ name: "Ifeoluwa Oladepo", url: "https://neefex.vercel.app" }],
     creator: "Ifeoluwa Oladepo",
     verification: {
         google: "your-google-verification-code", // from Google Search Console

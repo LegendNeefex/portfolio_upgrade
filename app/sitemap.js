@@ -6,7 +6,7 @@ export default async function sitemap() {
         .select("slug, created_at");
 
     const projects = data?.map((project) => ({
-        url: `https://yourportfolio.com/projects/${project.slug}`,
+        url: `https://neefex.vercel.app/projects/${project.slug}`,
         lastModified: new Date(project.created_at),
         changeFrequency: "monthly",
         priority: 0.8,
@@ -14,7 +14,7 @@ export default async function sitemap() {
 
     return [
         {
-            url: "https://yourportfolio.com",
+            url: "https://neefex.vercel.app",
             lastModified: new Date(),
             changeFrequency: "weekly",
             priority: 1.0,

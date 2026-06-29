@@ -7,7 +7,7 @@ export default function robots() {
                 disallow: ["/api/", "/_next/"],
             }
         ],
-        sitemap: "https://yourportfolio.com/sitemap.xml",
-        host: "https://yourportfolio.com",
+        sitemap: "https://neefex.vercel.app/sitemap.xml",
+        host: "https://neefex.vercel.app",
     };
 }

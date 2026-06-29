@@ -264,42 +264,47 @@ function ProjectPage() {
 
             {/* section 3 */}
             <div id="gallery" className="bg-[#414141]">
-                <div className="w-[95%] m-auto pt-8 pb-14">
-                    <div className="flex flex-col gap-14">
-                        <div>
-                            <div className="flex">
-                                <div className="flex w-10 h-0.5 bg-linear-to-r from-btn-first to-btn-second rounded-0 relative top-2.5"></div>
-                                <p className="px-2.5 text-[16px] font-medium text-muted font-montserrat">GALLERY</p>
-                            </div>
-                            <h2 className="text-[24px] font-bold text-muted font-montserrat">Visual Representation</h2>
-                        </div>
-                        <div className="grid grid-cols-3 gap-4">
-                            {assets.map((asset, index) => {
-                                const isVideo = asset.name.endsWith(".mp4") || asset.name.endsWith(".mov");
+                <div className="w-[95%] m-auto pt-18 pb-14">
+                    <div className="grid grid-cols-3 gap-4">
+                        {assets.map((asset, index) => {
+                            const isVideo =
+                                asset.name.endsWith(".mp4") ||
+                                asset.name.endsWith(".mov");
 
-                                return isVideo ? (
-                                    <video
-                                        key={index}
+                            return isVideo ? (
+                                <video
+                                    key={index}
+                                    src={asset.url}
+                                    controls
+                                    className="col-span-3 w-full rounded-2xl"
+                                />
+                            ) : (
+                                <div
+                                    key={index}
+                                    className="
+                                        relative
+                                        w-full
+                                        h-90
+                                        overflow-hidden
+                                        rounded-2xl
+                                        cursor-pointer
+                                        group
+                                    "
+                                    onClick={() => setSelectedAsset(asset)}
+                                >
+                                    <Image
                                         src={asset.url}
-                                        controls
-                                        className="col-span-3 w-full rounded-2xl"
+                                        alt={asset.name}
+                                        fill
+                                        unoptimized
+                                        className="
+                                            object-cover
+                                            
+                                        "
                                     />
-                                ) : (
-                                    <div key={index}>
-                                        <Image
-                                            src={asset.url}
-                                            alt={asset.name}
-                                            width={600}
-                                            height={400}
-                                            style={{ height: "auto" }}
-                                            unoptimized
-                                            className="rounded-2xl w-full object-cover cursor-pointer hover:scale-[1.02] transition-all duration-300 hover:opacity-90"
-                                            onClick={() => setSelectedAsset(asset)}
-                                        />
-                                    </div>
-                                );
-                            })}
-                        </div>
+                                </div>
+                            );
+                        })}
                     </div>
                 </div>
             </div>

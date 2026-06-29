@@ -15,7 +15,7 @@ export async function generateMetadata({ params }) {
         title: data?.project_title,
         description: data?.project_overview,
         alternates: {
-            canonical: `https://yourportfolio.com/projects/${slug}`,
+            canonical: `https://neefex.vercel.app/projects/${slug}`,
         },
         openGraph: {
             title: data?.project_title,
@@ -33,7 +33,7 @@ function ProjectStructuredData({ data }) {
         "name": data?.project_title,
         "description": data?.project_overview,
         "image": data?.thumbnail_url,
-        "url": `https://yourportfolio.com/projects/${data?.slug}`,
+        "url": `https://neefex.vercel.app/projects/${data?.slug}`,
         "creator": {
             "@type": "Person",
             "name": "Ifeoluwa Oladepo"
