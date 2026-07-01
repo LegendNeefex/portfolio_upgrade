@@ -8,14 +8,13 @@ import MeCards from "../Shared/meCards";
 export default function AboutMe() {
    return (
     <div className="bg-section-primary transition-colors duration-1000 ease-in-out py-14" id="about-me">
-        <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-10 w-[95%] m-auto">
-            
+        <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-10 w-[95%] m-auto">
             {/* Left side */}
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-4 md:text-left text-center">
                 <div className="flex flex-col gap-2">
-                    <div className="flex">
-                        <div className="flex w-10 h-0.5 bg-linear-to-r from-btn-first to-btn-second rounded-0 relative top-2.5"></div>
-                        <p className="px-2.5 text-[16px] font-medium text-muted font-montserrat">ABOUT ME</p>
+                    <div className="flex md:justify-start items-center justify-center gap-4">
+                        <div className="flex w-10 h-1 bg-linear-to-r from-btn-first to-btn-second rounded-0 relative"></div>
+                        <p className=" text-[16px] font-medium text-muted font-montserrat">ABOUT ME</p>
                     </div>
                     <h2 className="text-[24px] font-bold text-muted font-montserrat">Who Am I ?</h2>
                 </div>
@@ -24,11 +23,11 @@ export default function AboutMe() {
                 <p className="text-[16px] font-medium text-muted font-openSans">Beyond development, my background in UI/UX and graphic design allows me to approach projects with both technical precision and creative insight, ensuring every product is not only efficient under the hood but also engaging and easy to use. I value clean, maintainable code, attention to detail, and continuous learning, and I'm always focused on delivering premium-quality solutions that make real impact.</p>
                 <div className="flex flex-col h-full justify-between gap-7">
                     <div className="bg-passport-bg py-7 px-13 my-2.5">
-                        <div className="flex justify-between">
+                        <div className="md:flex justify-between text-center md:text-left gap-4 md:0">
                             <div className="flex flex-col justify-between gap-7">
                                 <div className="flex flex-col gap-2">
                                     <p className="text-[16px] font-semibold text-neutral-white font-outfit">Adobe Photoshop</p>
-                                    <div className="flex gap-2 text-[26px]">
+                                    <div className="flex gap-2 text-[26px] justify-center md:justify-start">
                                         <FaStar className="text-primary pr-2" />
                                         <FaStar className="text-primary pr-2" />
                                         <FaStar className="text-primary pr-2" />
@@ -38,7 +37,7 @@ export default function AboutMe() {
                                 </div>
                                 <div className="flex flex-col gap-2">
                                     <p className="text-[16px] font-semibold text-neutral-white font-outfit">HTML5</p>
-                                    <div className="flex gap-2 text-[26px]">
+                                    <div className="flex gap-2 text-[26px] justify-center md:justify-start">
                                         <FaStar className="text-primary pr-2" />
                                         <FaStar className="text-primary pr-2" />
                                         <FaStar className="text-primary pr-2" />
@@ -48,7 +47,7 @@ export default function AboutMe() {
                                 </div>
                                 <div className="flex flex-col gap-2">
                                     <p className="text-[16px] font-semibold text-neutral-white font-outfit">CSS3</p>
-                                    <div className="flex gap-2 text-[26px]">
+                                    <div className="flex gap-2 text-[26px] justify-center md:justify-start">
                                         <FaStar className="text-primary pr-2" />
                                         <FaStar className="text-primary pr-2" />
                                         <FaStar className="text-primary pr-2" />
@@ -58,7 +57,7 @@ export default function AboutMe() {
                                 </div>
                                 <div className="flex flex-col gap-2">
                                     <p className="text-[16px] font-semibold text-neutral-white font-outfit">JavaScript</p>
-                                    <div className="flex gap-2 text-[26px]">
+                                    <div className="flex gap-2 text-[26px] justify-center md:justify-start ">
                                         <FaStar className="text-primary pr-2" />
                                         <FaStar className="text-primary pr-2" />
                                         <FaStar className="text-primary pr-2" />
@@ -68,9 +67,9 @@ export default function AboutMe() {
                                 </div>
                             </div>
                             <div className="flex flex-col justify-between gap-7">
-                                <div className="flex flex-col gap-2">
+                                <div className="flex flex-col gap-2 mt-6 md:mt-0">
                                     <p className="text-[16px] font-semibold text-neutral-white font-outfit">Tailwind CSS</p>
-                                    <div className="flex gap-2 text-[26px]">
+                                    <div className="flex gap-2 text-[26px] justify-center md:justify-start">
                                         <FaStar className="text-primary pr-2" />
                                         <FaStar className="text-primary pr-2" />
                                         <FaStar className="text-primary pr-2" />
@@ -80,7 +79,7 @@ export default function AboutMe() {
                                 </div>
                                 <div className="flex flex-col gap-2">
                                     <p className="text-[16px] font-semibold text-neutral-white font-outfit">Figma</p>
-                                    <div className="flex gap-2 text-[26px]">
+                                    <div className="flex gap-2 text-[26px] justify-center md:justify-start">
                                         <FaStar className="text-primary pr-2" />
                                         <FaStar className="text-primary pr-2" />
                                         <FaStar className="text-primary pr-2" />
@@ -90,7 +89,7 @@ export default function AboutMe() {
                                 </div>
                                 <div className="flex flex-col gap-2">
                                     <p className="text-[16px] font-semibold text-neutral-white font-outfit">React.js</p>
-                                    <div className="flex gap-2 text-[26px]">
+                                    <div className="flex gap-2 text-[26px] justify-center md:justify-start">
                                         <FaStar className="text-primary pr-2" />
                                         <FaStar className="text-primary pr-2" />
                                         <FaStar className="text-primary pr-2" />
@@ -100,7 +99,7 @@ export default function AboutMe() {
                                 </div>
                                 <div className="flex flex-col gap-2">
                                     <p className="text-[16px] font-semibold text-neutral-white font-outfit">Next.js</p>
-                                    <div className="flex gap-2 text-[26px]">
+                                    <div className="flex gap-2 text-[26px] justify-center md:justify-start">
                                         <FaStar className="text-primary pr-2" />
                                         <FaStar className="text-primary pr-2" />
                                         <FaStar className="text-primary pr-2" />
@@ -110,9 +109,9 @@ export default function AboutMe() {
                                 </div>
                             </div>
                             <div className="flex flex-col justify-between gap-7">
-                                <div className="flex flex-col gap-2">
+                                <div className="flex flex-col gap-2 mt-6 md:mt-0">
                                     <p className="text-[16px] font-semibold text-neutral-white font-outfit">Express.js</p>
-                                    <div className="flex gap-2 text-[26px]">
+                                    <div className="flex gap-2 text-[26px] justify-center md:justify-start">
                                         <FaStar className="text-primary pr-2" />
                                         <FaStar className="text-primary pr-2" />
                                         <FaStar className="text-primary pr-2" />
@@ -122,7 +121,7 @@ export default function AboutMe() {
                                 </div>
                                 <div className="flex flex-col gap-2">
                                     <p className="text-[16px] font-semibold text-neutral-white font-outfit">PostgreSQL</p>
-                                    <div className="flex gap-2 text-[26px]">
+                                    <div className="flex gap-2 text-[26px] justify-center md:justify-start">
                                         <FaStar className="text-primary pr-2" />
                                         <FaStar className="text-primary pr-2" />
                                         <FaStar className="text-primary pr-2" />
@@ -132,7 +131,7 @@ export default function AboutMe() {
                                 </div>
                                 <div className="flex flex-col gap-2">
                                     <p className="text-[16px] font-semibold text-neutral-white font-outfit">Node.js</p>
-                                    <div className="flex gap-2 text-[26px]">
+                                    <div className="flex gap-2 text-[26px] justify-center md:justify-start">
                                         <FaStar className="text-primary pr-2" />
                                         <FaStar className="text-primary pr-2" />
                                         <FaStar className="text-primary pr-2" />
@@ -142,7 +141,7 @@ export default function AboutMe() {
                                 </div>
                                 <div className="flex flex-col gap-2">
                                     <p className="text-[16px] font-semibold text-neutral-white font-outfit">Version Controls</p>
-                                    <div className="flex gap-2 text-[26px]">
+                                    <div className="flex gap-2 text-[26px] justify-center md:justify-start">
                                         <FaStar className="text-primary pr-2" />
                                         <FaStar className="text-primary pr-2" />
                                         <FaStar className="text-primary pr-2" />

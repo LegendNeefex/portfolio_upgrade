@@ -18,7 +18,7 @@ function Footer(params) {
                         </Link>
                     </div>
                 </div>
-                <h4 className="text-[16px] text-neutral-white mt-8 font-medium font-montserrat">Copyright &copy; 2026 - Ifeoluwa Oladepo</h4>
+                <h4 className="text-[16px] text-neutral-white mt-8 font-medium font-montserrat">Copyright &copy; {new Date().getFullYear()} Neefex. All rights reserved. </h4>
             </div>
         </div>
     )

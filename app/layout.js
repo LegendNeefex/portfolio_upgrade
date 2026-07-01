@@ -2,7 +2,7 @@ import { Open_Sans, Outfit, Montserrat, Lato, Poppins } from "next/font/google";
 import "./globals.css";
 import { ApiProvider } from "./Context/stateHandler";
 import ScrollToTop from "./Components/scrollToTop";
-import PageLoader from "./Components/pageLoader";
+import PageWrapper from "./Components/pageWrapper";
 import StructuredData from "./Components/structuredData";
 
 const openSans = Open_Sans({
@@ -92,18 +92,19 @@ export default function RootLayout({ children }) {
         className={`${outfit.variable} ${openSans.variable} ${montserrat.variable} ${lato.variable} ${poppins.variable} antialiased`}
       >
         <ApiProvider> 
-          <PageLoader />
-          <StructuredData />
-          <svg width="0" height="0" className="absolute">
-            <defs>
-              <linearGradient id="iconGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stopColor="#1ABC9C" />
-                <stop offset="100%" stopColor="#367BE4" />
-              </linearGradient>
-            </defs>
-          </svg>
-          {children}
-          <ScrollToTop />
+          <PageWrapper>
+            <StructuredData />
+            <svg width="0" height="0" className="absolute">
+              <defs>
+                <linearGradient id="iconGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stopColor="#1ABC9C" />
+                  <stop offset="100%" stopColor="#367BE4" />
+                </linearGradient>
+              </defs>
+            </svg>
+            {children}
+            <ScrollToTop />
+          </PageWrapper>
         </ApiProvider>
       </body>
     </html>

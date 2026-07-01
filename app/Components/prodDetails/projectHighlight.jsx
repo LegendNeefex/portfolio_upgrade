@@ -10,6 +10,24 @@ export default function ProjectHighlights() {
     const [loading, setLoading] = useState(true);
     const { selectedProject } = useContext (stateHandler)
 
+    const [ready, setReady] = useState(false);
+    useEffect(() => {
+        if (!highlights.length) return;
+
+        Promise.all(
+            highlights.map(item => {
+                return new Promise(resolve => {
+                    const img = new window.Image();
+                    img.src = item.thumbnail_url;
+                    img.onload = resolve;
+                    img.onerror = resolve;
+                });
+            })
+    ).then(() => {
+        setReady(true);
+    });
+}, [highlights]);
+
     useEffect(() => {
         if (!selectedProject) return;
 
@@ -57,47 +75,49 @@ export default function ProjectHighlights() {
     return (
         <section className="w-full pb-14 pt-8">
             <div className="m-auto w-[95%]">
-                <div className="grid grid-cols-10 gap-5">
-                    {/* LEFT LARGE */}
-                    {leftLarge && (
-                        <HighlightCard
-                            data={leftLarge}
-                            className="col-span-3 row-span-1 h-155"
-                            selectedProject={selectedProject}
-                        />
-                    )}
-
-                    {/* CENTER */}
-                    <div className="col-span-4 flex flex-col gap-5">
-
-                        {topSmall && (
+                if (!ready) {
+                    <div className="grid grid-cols-10 gap-5">
+                        {/* LEFT LARGE */}
+                        {leftLarge && (
                             <HighlightCard
-                                data={topSmall}
-                                className="h-75"
+                                data={leftLarge}
+                                className="col-span-3 row-span-1 h-155"
                                 selectedProject={selectedProject}
                             />
                         )}
 
-                        {bottomSmall && (
+                        {/* CENTER */}
+                        <div className="col-span-4 flex flex-col gap-5">
+
+                            {topSmall && (
+                                <HighlightCard
+                                    data={topSmall}
+                                    className="h-75"
+                                    selectedProject={selectedProject}
+                                />
+                            )}
+
+                            {bottomSmall && (
+                                <HighlightCard
+                                    data={bottomSmall}
+                                    className="h-75"
+                                    selectedProject={selectedProject}
+                                />
+                            )}
+
+                        </div>
+
+                        {/* RIGHT LARGE */}
+                        {rightLarge && (
                             <HighlightCard
-                                data={bottomSmall}
-                                className="h-75"
+                                data={rightLarge}
+                                className="col-span-3 row-span-1 h-155"
                                 selectedProject={selectedProject}
                             />
                         )}
 
                     </div>
-
-                    {/* RIGHT LARGE */}
-                    {rightLarge && (
-                        <HighlightCard
-                            data={rightLarge}
-                            className="col-span-3 row-span-1 h-155"
-                            selectedProject={selectedProject}
-                        />
-                    )}
-
-                </div>
+                }
 
             </div>
 

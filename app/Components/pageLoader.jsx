@@ -19,7 +19,10 @@ export default function PageLoader({ text = "Loading", duration = 2500, controll
     if (!loading && !routeLoading) return null;
 
     return (
-        <div className="fixed inset-0 bg-[#1a1a1a] flex flex-col items-center justify-center gap-6 z-[999]">
+        <div 
+            className="fixed inset-0 bg-[#1a1a1a] flex flex-col items-center justify-center gap-6"
+            style={{ zIndex: 9999 }}
+        >
             <div className="flex flex-col items-center gap-4">
                 <div className="relative">
                     <div className="w-20 h-20 rounded-full border-4 border-[#1ABC9C]/20 border-t-[#1ABC9C] animate-spin" />

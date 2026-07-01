@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { IoMdFlash, IoIosArrowUp  } from "react-icons/io";
 import { MdContactSupport } from "react-icons/md";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
@@ -45,6 +45,18 @@ function GetQuote() {
         budgetCurrency: currencies[0],
         budgetFlexibility: "",
     });
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        const handleResize = () => {
+            setIsMobile(window.innerWidth < 768);
+        };
+
+        handleResize();
+        window.addEventListener("resize", handleResize);
+
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.id]: e.target.value });
@@ -141,40 +153,59 @@ function GetQuote() {
 
     return (
         <div id="get-quote" className="bg-[#2F2D2D]">
-            <Toast ref={toast} position="top-right" />
+            <Toast
+                ref={toast}
+                position={isMobile ? "top-center" : "top-right"}
+            />
             <div className="w-[95%] m-auto py-24 relative">
                 {/* Header */}
-                <div className="w-[55%] m-auto flex flex-col gap-6 justify-center items-center text-center">
+                <div className="w-full lg:w-[55%] m-auto flex flex-col gap-6 justify-center items-center text-center">
                     <div className="flex flex-col gap-4">
                         <div className="flex justify-center">
-                            <div className="flex w-10 h-0.5 bg-linear-to-r from-btn-first to-btn-second rounded-0 relative top-2.5"></div>
+                            <div className="flex w-10 h-1 bg-linear-to-r from-btn-first to-btn-second rounded-0 relative top-2.5"></div>
                             <p className="px-2.5 text-[16px] font-medium text-muted font-montserrat">GET QUOTE</p>
                         </div>
                         <div>
                             <h2 className="text-[24px] font-semibold text-muted font-montserrat mb-2">Let's Bring Your Idea to Life</h2>
                             <p className="text-[16px] font-openSans font-medium text-[#DDDEDE]">Whether you need a modern website, UI/UX design, branding materials, or social media management, I'm here to help transform your vision into a successful digital product. Let's discuss your project and create something amazing together.</p>
                         </div>
-                        <div className="flex justify-center gap-10 mt-4">
+
+                        <div className="grid grid-cols-2 gap-3 mt-4 md:flex md:flex-row md:justify-center md:gap-10">
                             <div className="flex gap-4 items-center">
-                                <IoMdFlash style={{ fill: "url(#iconGradient)" }} className="text-[28px] shrink-0" />
-                                <p className="text-[16px] text-muted font-openSans font-medium">Fast Response</p>
+                                <IoMdFlash
+                                    style={{ fill: "url(#iconGradient)" }}
+                                    className="text-[28px] shrink-0"
+                                />
+                                <p className="text-[16px] text-muted font-openSans font-medium">
+                                    Fast Response
+                                </p>
                             </div>
+
                             <div className="flex gap-4 items-center">
-                                <MdContactSupport style={{ fill: "url(#iconGradient)" }} className="text-[28px] shrink-0" />
-                                <p className="text-[16px] text-muted font-openSans font-medium">Tailored Solutions</p>
+                                <MdContactSupport
+                                    style={{ fill: "url(#iconGradient)" }}
+                                    className="text-[28px] shrink-0"
+                                />
+                                <p className="text-[16px] text-muted font-openSans font-medium">
+                                    Tailored Solutions
+                                </p>
                             </div>
-                            <div className="flex gap-4 items-center">
-                                <SiKashflow style={{ fill: "url(#iconGradient)" }} className="text-[28px] shrink-0" />
-                                <p className="text-[16px] text-muted font-openSans font-medium">Transparent Process</p>
+
+                            <div className="flex gap-4 items-center col-span-2 justify-center lg:col-span-1 lg:justify-start">
+                                <SiKashflow
+                                    style={{ fill: "url(#iconGradient)" }}
+                                    className="text-[28px] shrink-0"
+                                />
+                                <p className="text-[16px] text-muted font-openSans font-medium">
+                                    Transparent Process
+                                </p>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 {/* Main content */}
-                <div className="flex justify-center mt-30 gap-70 flex-col md:flex-row">
-
-
+                <div className="flex justify-center mt-30 gap-48 lg:gap-70 flex-col lg:flex-row">
                     {/* Sticky Cards */}
                     <div className="flex flex-col gap-7 relative">
                         <div className="absolute left-9 z-0">
@@ -190,7 +221,7 @@ function GetQuote() {
                     </div>
 
                     {/* Form */}
-                    <div className="bg-[#E3F2FD] flex flex-col gap-6 border-3 border-[#A0A9B1] rounded-[60px] py-8 px-8 w-full md:w-[45%]">
+                    <div className="bg-[#E3F2FD] flex flex-col gap-6 border-3 border-[#A0A9B1] md:rounded-[60px] rounded-[30px] py-8 px-4 lg:px-8 w-full lg:w-[45%]">
                         <div className="flex flex-col items-center gap-4 w-[80%] m-auto">
                             <p className="font-openSans font-bold text-[#2D2D2D] text-[16px] text-center">
                                 Please, provide details about your projects so we can help you better.
@@ -203,6 +234,7 @@ function GetQuote() {
                             <div className="flex flex-col gap-2">
                                 <label htmlFor="name" className="font-openSans font-bold text-[#2D2D2D] text-[16px]">Name</label>
                                 <input
+                                    maxLength={100}
                                     type="text"
                                     id="name"
                                     value={formData.name}
@@ -217,6 +249,7 @@ function GetQuote() {
                             <div className="flex flex-col gap-2">
                                 <label htmlFor="email" className="font-openSans font-bold text-[#2D2D2D] text-[16px]">Email</label>
                                 <input
+                                     maxLength={50}
                                     type="email"
                                     id="email"
                                     value={formData.email}
@@ -231,6 +264,7 @@ function GetQuote() {
                             <div className="flex flex-col gap-2">
                                 <label htmlFor="projectType" className="font-openSans font-bold text-[#2D2D2D] text-[16px]">Project Type</label>
                                 <input
+                                    maxLength={100}
                                     type="text"
                                     id="projectType"
                                     value={formData.projectType}
@@ -245,6 +279,7 @@ function GetQuote() {
                             <div className="flex flex-col gap-2">
                                 <label htmlFor="projectTimeline" className="font-openSans font-bold text-[#2D2D2D] text-[16px]">Project Timeline</label>
                                 <input
+                                    maxLength={50}
                                     type="text"
                                     id="projectTimeline"
                                     value={formData.projectTimeline}
@@ -259,6 +294,7 @@ function GetQuote() {
                             <div className="flex flex-col gap-2">
                                 <label htmlFor="projectDesc" className="font-openSans font-bold text-[#2D2D2D] text-[16px]">Project Description</label>
                                 <textarea
+                                    maxLength={500}
                                     id="projectDesc"
                                     rows={5}
                                     value={formData.projectDesc}

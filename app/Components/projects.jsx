@@ -97,13 +97,15 @@ function Projects() {
     return (
         <div id="projects" className="bg-section-primary">
             <div className="w-[95%] m-auto flex py-8 flex-col gap-4">
-                <div>
-                    <div className="flex">
-                        <div className="flex w-10 h-0.5 bg-linear-to-r from-btn-first to-btn-second relative top-2.5"></div>
-                        <p className="px-2.5 text-[16px] font-medium text-muted font-montserrat">MY PROJECTS</p>
+                <div className="flex flex-col gap-4 md:text-left text-center">
+                    <div className="flex flex-col gap-2 md:text-left text-center">
+                        <div className="flex md:justify-start items-center justify-center gap-4">
+                            <div className="flex w-10 h-1 bg-linear-to-r from-btn-first to-btn-second rounded-0 relative"></div>
+                            <p className=" text-[16px] font-medium text-muted font-montserrat">MY PROJECTS</p>
+                        </div>
+                        <h2 className="text-[24px] font-bold text-muted font-montserrat">Projects i have worked on?</h2>
                     </div>
-                    <h2 className="text-[24px] font-bold text-muted font-montserrat mb-2">Projects i have worked on ?</h2>
-                    <div className="flex gap-3 flex-wrap">
+                    <div className="flex gap-3 flex-wrap justify-center md:justify-start">
                         {["ALL", "UI/UX", "WEBSITES", "GRAPHICS"].map((option) => (
                             <button
                                 key={option}
@@ -193,10 +195,10 @@ function Projects() {
                                             }}
                                         />
                                     </div>
-                                    <div className="flex flex-col flex-1 mt-6">
+                                    <div className="flex flex-col flex-1 mt-6 text-center md:text-left">
                                         <h3 className="font-outfit font-bold text-[28px] text-black">{item.project_title}</h3>
                                         <p className="font-openSans text-[16px] text-[#2F2D2D] leading-7 mt-3 line-clamp-4">{item.project_desc}</p>
-                                        <div className="mt-auto flex justify-between items-center">
+                                        <div className="mt-auto flex flex-col pt-4 md:pt-0 gap-6 md:gap-0 md:flex-row justify-between items-center">
                                             <div className="flex gap-3 flex-wrap">
                                                 {item.miniTags?.map((tag, index) => (
                                                     <StackTags

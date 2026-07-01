@@ -51,10 +51,9 @@ function FAQ() {
 
     return (
         <div id="faq" className="bg-section-secondary relative overflow-hidden">
-            <div className='absolute -top-10 left-20 bg-[#0F6A58] opacity-25 w-64 h-64 md:w-300 md:h-300 rounded-full blur-3xl z-0'></div>
+            <div className='hidden lg:flex absolute -top-10 left-20 bg-[#0F6A58] opacity-25 w-64 h-64 md:w-300 md:h-300 rounded-full blur-3xl z-0'></div>
             <div className="w-[95%] m-auto py-10 relative z-10">
-                
-                <div className="w-[50%] m-auto flex flex-col gap-6 justify-center items-center text-center">
+                <div className="w-full lg:w-[50%] m-auto flex flex-col gap-6 justify-center items-center text-center">
                     <Image
                         src="/Image/star 1.png"
                         alt="Star"
@@ -65,7 +64,7 @@ function FAQ() {
                     />
                     <div className="flex flex-col gap-4">
                         <div className="flex justify-center">
-                            <div className="flex w-10 h-0.5 bg-linear-to-r from-btn-first to-btn-second rounded-0 relative top-2.5"></div>
+                            <div className="flex w-10 h-1 bg-linear-to-r from-btn-first to-btn-second rounded-0 relative top-2.5"></div>
                             <p className="px-2.5 text-[16px] font-medium text-muted font-montserrat">FAQs</p>
                         </div>
                         <div>
