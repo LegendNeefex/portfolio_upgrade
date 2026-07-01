@@ -1,23 +1,25 @@
-// app/Components/pageLoader.jsx
 "use client"
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import stateHandler from "../Context/stateHandler";
 
 export default function PageLoader({ text = "Loading", duration = 2500, controlled = false }) {
     const [loading, setLoading] = useState(true);
+    const ctx = useContext(stateHandler);
+    const routeLoading = ctx?.routeLoading;
 
     useEffect(() => {
-        if (controlled) return; // don't auto dismiss
+        if (controlled) return;
         const timer = setTimeout(() => {
             setLoading(false);
         }, duration);
         return () => clearTimeout(timer);
     }, [duration, controlled]);
 
-    if (!loading) return null;
+    if (!loading && !routeLoading) return null;
 
     return (
-        <div className="fixed inset-0 bg-[#1a1a1a] flex flex-col items-center justify-center gap-6 z-999">
+        <div className="fixed inset-0 bg-[#1a1a1a] flex flex-col items-center justify-center gap-6 z-[999]">
             <div className="flex flex-col items-center gap-4">
                 <div className="relative">
                     <div className="w-20 h-20 rounded-full border-4 border-[#1ABC9C]/20 border-t-[#1ABC9C] animate-spin" />
@@ -30,7 +32,9 @@ export default function PageLoader({ text = "Loading", duration = 2500, controll
                 </h2>
             </div>
             <div className="flex flex-col items-center gap-2">
-                <p className="text-white font-montserrat text-[16px] font-medium">{text}</p>
+                <p className="text-white font-montserrat text-[16px] font-medium">
+                    {routeLoading ? "Loading Project" : text}
+                </p>
                 <div className="flex gap-1.5">
                     <div className="w-2 h-2 rounded-full bg-[#1ABC9C] animate-bounce" style={{ animationDelay: "0ms" }} />
                     <div className="w-2 h-2 rounded-full bg-[#1ABC9C] animate-bounce" style={{ animationDelay: "150ms" }} />

@@ -20,14 +20,14 @@ function ProjectPage() {
     const ctx = useContext(stateHandler)
     const { selectedProject, setSelectedProject, routeLoading, setRouteLoading } = ctx || {}
     const [loading, setLoading] = useState(!selectedProject);
-
-
-
-    const { slug } = useParams()
     const [loaded, setLoaded] = useState(false);
+    const [loadedImages, setLoadedImages] = useState({});
     const [assets, setAssets] = useState([]);
     const [selectedAsset, setSelectedAsset] = useState(null);
     const hasScrolled = useRef(false);
+    
+    
+    const { slug } = useParams()
 
 
 
@@ -73,41 +73,52 @@ function ProjectPage() {
 
     
 
-    useEffect(() => {
-        async function loadProject() {
-            setLoading(true);
-            if (setRouteLoading) setRouteLoading(true);
-            setLoaded(false);
+    async function loadProject() {
+        setLoading(true);
 
+        try {
+            const result = await Promise.race([
+                supabase
+                    .from("projects")
+                    .select("*")
+                    .eq("slug", slug)
+                    .single(),
+                new Promise((_, reject) =>
+                    setTimeout(() => reject(new Error("Request timed out")), 5000)
+                )
+            ]);
 
-            if (selectedProject?.slug === slug) {
-                await fetchAssets(selectedProject.slug);
-                setLoading(false);
-                if (setRouteLoading) setRouteLoading(false);
-                return;
-            }
-
-
-            const { data, error } = await supabase
-                .from("projects")
-                .select("*")
-                .eq("slug", slug)
-                .single();
-
-            if (error) {
-                console.log(error);
-                return;
-            }
+            const { data, error } = result;
+            if (error || !data) throw new Error("Project not found");
 
             setSelectedProject(data);
-
             await fetchAssets(data.slug);
+
+        } catch (err) {
+            setError(err.message); // ← show error UI instead of blank page
+            setLoading(false);
+            if (setRouteLoading) setRouteLoading(false);
+        }
+    }
+
+    useEffect(() => {
+        loadProject();
+    }, [slug], loadProject)
+
+    useEffect(() => {
+        if (selectedAsset) {
+            document.body.style.overflow = "hidden";
+            document.body.style.touchAction = "none";
+        } else {
+            document.body.style.overflow = "";
+            document.body.style.touchAction = "";
         }
 
-
-        loadProject();
-
-    }, [slug])
+        return () => {
+            document.body.style.overflow = "";
+            document.body.style.touchAction = "";
+        };
+    }, [selectedAsset]);
 
     async function fetchAssets(projectSlug) {
         const { data, error } = await supabase.storage
@@ -116,43 +127,24 @@ function ProjectPage() {
 
         if (error) {
             console.log(error);
-        } else {
-            const urls = data.map((file) => {
+            setLoading(false);
+            if (setRouteLoading) setRouteLoading(false);
+            return;
+        }
+
+        const urls = data
+            .filter(file => !file.name.startsWith('.')) // filter hidden supabase files
+            .map(file => {
                 const { data: urlData } = supabase.storage
                     .from("projects_assets")
                     .getPublicUrl(`${projectSlug}/assets/${file.name}`);
                 return { url: urlData.publicUrl, name: file.name };
             });
-            // Wait until ALL media in the gallery are ready (images + videos)
-            await Promise.all(
-                urls.map(({ url, name }) =>
-                    new Promise((resolve) => {
-                        const isVideo =
-                            name.endsWith(".mp4") || name.endsWith(".mov") || name.endsWith(".webm");
 
-                        if (isVideo) {
-                            // Avoid `new window.HTMLVideoElement()` (some browsers throw Illegal constructor)
-                            const vid = document.createElement('video');
-                            vid.preload = 'metadata';
-                            vid.onloadedmetadata = () => resolve();
-                            vid.onerror = () => resolve();
-                            vid.src = url;
-                            return;
-                        }
-
-                        const img = new window.Image();
-                        img.onload = () => resolve();
-                        img.onerror = () => resolve();
-                        img.src = url;
-                    })
-                )
-            );
-            setAssets(urls);
-            setLoading(false);
-            setRouteLoading(false);
-
-        }
-    }
+        setAssets(urls);
+        setLoading(false);
+        if (setRouteLoading) setRouteLoading(false);
+}
         
     useEffect(() => {
         if (!loading) {
@@ -177,9 +169,37 @@ function ProjectPage() {
         "bg-neutral-white text-[#127D68]",
     ];
 
+
+   const [error, setError] = useState(null);
     if (loading || routeLoading) return <PageLoader text="Loading Project" controlled={true} />
 
-    
+    if (error) return (
+        <div className="w-full h-screen bg-[#1a1a1a] flex flex-col items-center justify-center gap-6">
+            <h1 className="text-[#1ABC9C] font-montserrat font-bold text-[48px]">Oops!</h1>
+            <p className="text-white font-openSans text-[18px] text-center px-6">
+                This project is temporarily unavailable or doesn't exist anymore.
+            </p>
+            <div className="flex gap-4">
+                <button
+                    onClick={() => {
+                        setError(null);
+                        setLoading(true);
+                        loadProject();
+                    }}
+                    className="py-3 px-8 bg-linear-to-r from-btn-first to-btn-second rounded-full text-white font-montserrat font-semibold hover:scale-95 duration-300 cursor-pointer"
+                >
+                    Retry
+                </button>
+                <a
+                    href="/"
+                    className="py-3 px-8 border-2 border-[#1ABC9C] rounded-full text-[#1ABC9C] font-montserrat font-semibold hover:scale-95 duration-300"
+                >
+                    Go Home
+                </a>
+            </div>
+        </div>
+    )
+
     return (
         <>
             {/* Image Overlay */}
@@ -307,7 +327,7 @@ function ProjectPage() {
 
             {/* section 2 */}
             <ProjectOverview />
-
+            
             {/* section 3 */}
             <div id="gallery" className="bg-[#414141]">
                 <div className="w-[95%] m-auto pt-18 pb-14">
@@ -317,37 +337,48 @@ function ProjectPage() {
                             const isVideo =
                                 asset.name.endsWith(".mp4") ||
                                 asset.name.endsWith(".mov");
-
                             return isVideo ? (
                                 <video
-                                    key={index}
+                                    key={`${asset.name}-${index}`}
                                     src={asset.url}
                                     controls
+                                    preload="metadata"
                                     className="col-span-3 w-full rounded-2xl"
                                 />
                             ) : (
                                 <div
-                                    key={index}
-                                    className="
-                                        relative
-                                        w-full
-                                        h-90
-                                        overflow-hidden
-                                        rounded-2xl
-                                        cursor-pointer
-                                        group
-                                    "
+                                    key={`${asset.name}-${index}`}
+                                    className="relative h-90 rounded-2xl overflow-hidden cursor-pointer"
+                                    style={{
+                                        containIntrinsicSize: "360px",
+                                    }}
                                     onClick={() => setSelectedAsset(asset)}
                                 >
+                                    {!loadedImages[index] && (
+                                        <div className="
+                                            absolute
+                                            inset-0
+                                            bg-linear-to-br
+                                            from-[#313131]
+                                            via-[#494949]
+                                            to-[#313131]
+                                            animate-pulse
+                                        " />
+                                    )}
+
                                     <Image
                                         src={asset.url}
-                                        alt={asset.name}
                                         fill
-                                        unoptimized
-                                        className="
-                                            object-cover
-                                            
-                                        "
+                                        alt={asset.name}
+                                        onLoad={() =>
+                                            setLoadedImages(prev => ({
+                                                ...prev,
+                                                [index]: true,
+                                            }))
+                                        }
+                                        className={`object-cover transition-opacity duration-500 ${
+                                            loadedImages[index] ? "opacity-100" : "opacity-0"
+                                        }`}
                                     />
                                 </div>
                             );
@@ -383,8 +414,8 @@ function ProjectPage() {
                             unoptimized={true} 
                             priority
                         />
-                        <div className="flex flex-col justify-between gap-6 text-center w-[30%] ml-auto mr-50">
-                            <h2 className="text-[48px] font-poppins font-semibold text-[#1ABC9C]">Do You Like What you See?</h2>
+                        <div className="flex flex-col justify-between gap-6 text-center w-[35%] ml-auto mr-50">
+                            <h2 className="text-[48px] font-poppins font-semibold text-[#1ABC9C]">Do You Like What You See?</h2>
                             <p className="text-[#ECF0F1] font-openSans font-medium text-[18px]">Let's discuss how I can help bring your idea to life.</p>
                             <Link href="/#get-quote" className='py-3 px-12 rounded-full bg-linear-to-r from-btn-first to-btn-second text-[18px] font-semibold font-montserrat shadow-frame cursor-pointer hover:scale-98 duration-500 inline-block mt-7'>
                                 Get Quote

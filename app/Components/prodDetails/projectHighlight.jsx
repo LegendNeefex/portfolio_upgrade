@@ -170,7 +170,96 @@ function HighlightCard({ data, className, selectedProject }) {
                 position: "object-bottom-right -translate-x-2 translate-y-10", 
                 size: "w-[80%] h-[70%]",
             }
-        }
+        },
+        ayur:{        
+            small_top: { 
+                position: "object-right", 
+                size: "w-[90%] h-[90%]", 
+            }, 
+            
+            small_bottom: { 
+                position: "object-left -translate-x-30", 
+                size: "w-[80%] h-[100%]", 
+            }, 
+        },
+        saxton_store:{        
+            small_bottom: { 
+                position: "object-left -translate-x-30", 
+                size: "w-[80%] h-[100%]", 
+            }, 
+        },
+        nest:{  
+            large_left: { 
+                position: "-translate-x-4 translate-y-15", 
+                size: "w-[100%] h-[100%]", 
+            },       
+            small_bottom: { 
+                position: "object-left -translate-x-30", 
+                size: "w-[80%] h-[100%]", 
+            }, 
+        },
+        vista_vault:{  
+            large_left: { 
+                position: "-translate-x-0 translate-y-15", 
+                size: "w-[100%] h-[100%]", 
+            },       
+        },
+        sms:{ 
+            large_left: { 
+                position: "object-bottom-right translate-y-5", 
+                size: "w-[100%] h-[100%]", 
+            }, 
+                
+            small_top: { 
+                position: "object-right", 
+                size: "w-[90%] h-[90%]", 
+            }, 
+            
+            small_bottom: { 
+                position: "object-left -translate-x-40 -translate-y-0 rotate-45", 
+                size: "w-[80%] h-[80%]", 
+            }, 
+            
+            large_right: { 
+                position: "object-bottom-right -translate-x-2 translate-y-10", 
+                size: "w-[80%] h-[70%]",
+            }
+        },
+        mini_store:{ 
+            large_left: { 
+                position: "object-bottom-right translate-y-5", 
+                size: "w-[100%] h-[100%]", 
+            }, 
+                
+            small_top: { 
+                position: "object-right -translate-x-8", 
+                size: "w-[90%] h-[90%]", 
+            }, 
+            
+        },
+        portfolio:{ 
+            small_bottom: { 
+                position: "object-left -translate-y-20 -translate-x-30 -rotate-45", 
+                size: "w-[80%] h-[80%]", 
+            }, 
+
+        },
+        collections:{ 
+            large_left: { 
+                position: "object-bottom-right translate-y-5", 
+                size: "w-[100%] h-[100%]", 
+            }, 
+                
+            small_top: { 
+                position: "object-right -translate-y-15 translate-x-4 rotate-45", 
+                size: "w-[90%] h-[90%]", 
+            }, 
+            
+            small_bottom: { 
+                position: "object-left -translate-x-30 -translate-y-0", 
+                size: "w-[80%] h-[100%]", 
+            }, 
+        },
         // other default size and positioning here.
     };
 
