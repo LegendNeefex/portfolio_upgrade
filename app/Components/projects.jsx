@@ -23,19 +23,30 @@ function Projects() {
         setLoading(true);
         setError(null);
         try {
-            // race between fetch and 8 second timeout
+            // check sessionStorage first
+            const cached = sessionStorage.getItem("projects");
+            if (cached) {
+                setData(JSON.parse(cached));
+                setLoading(false);
+                return;
+            }
+
             const { data, error } = await Promise.race([
                 supabase
                     .from("projects")
                     .select("*")
                     .order("display_order", { ascending: true }),
                 new Promise((_, reject) =>
-                    setTimeout(() => reject(new Error("Request timed out")), 5000)
+                    setTimeout(() => reject(new Error("Request timed out")), 8000)
                 )
             ]);
 
             if (error) throw error;
+
+            // save to session cache
+            sessionStorage.setItem("projects", JSON.stringify(data));
             setData(data);
+
         } catch (err) {
             console.log(err);
             setError(err.message);
