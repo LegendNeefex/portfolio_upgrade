@@ -1,10 +1,10 @@
 import { supabase } from "@/app/lib/supabase";
 
 export default async function sitemap() {
-    const { data } = await supabase
+    const { data, error } = await supabase
         .from("projects")
         .select("slug, created_at");
-        
+
     if (error){
         console.error("Error fetching projects for sitemap:", error);
         return [];
