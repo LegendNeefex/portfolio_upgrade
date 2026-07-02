@@ -102,7 +102,7 @@ function NavBar() {
                             </ScrollLink>
                         </li>
                         <li className="relative -top-2 px-4">
-                            <a href="/Document/My-CV.pdf" download="My CV.pdf" className="text-muted">
+                            <a href="/document/My-CV.pdf" download="My CV.pdf" className="text-muted">
                                 <div className="flex flex-col items-center">
                                     <div className="text-[12px] font-medium">Download</div>
                                     <div className="text-[16px] font-bold">Resume</div>
@@ -383,7 +383,7 @@ function NavBar() {
                     </ul>
                     <div className="mt-10">
                         <a
-                            href="/Document/My-CV.pdf"
+                            href="/document/My-CV.pdf"
                             download
                             className="
                             flex

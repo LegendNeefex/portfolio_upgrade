@@ -152,7 +152,7 @@ export default function AboutMe() {
                             </div>
                         </div>
                     </div>
-                    <Link className="py-3 px-6 bg-linear-to-r from-btn-first to-btn-second rounded-full shadow-frame w-full text-center text-[18px] text-neutral-white font-montserrat font-bold hover:scale-98 duration-500 inline-block" href='/Document/My-CV.pdf' download="My CV.pdf" target="_blank">
+                    <Link className="py-3 px-6 bg-linear-to-r from-btn-first to-btn-second rounded-full shadow-frame w-full text-center text-[18px] text-neutral-white font-montserrat font-bold hover:scale-98 duration-500 inline-block" href='/document/My-CV.pdf' download="My CV.pdf" target="_blank">
                         DOWNLOAD CV
                     </Link>
                 </div>

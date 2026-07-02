@@ -1,9 +1,14 @@
-import { supabase } from "./lib/supabase";
+import { supabase } from "@/app/lib/supabase";
 
 export default async function sitemap() {
     const { data } = await supabase
         .from("projects")
         .select("slug, created_at");
+        
+    if (error){
+        console.error("Error fetching projects for sitemap:", error);
+        return [];
+    }
 
     const projects = data?.map((project) => ({
         url: `https://neefex.vercel.app/projects/${project.slug}`,
