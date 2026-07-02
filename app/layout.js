@@ -4,6 +4,7 @@ import { ApiProvider } from "./Context/stateHandler";
 import ScrollToTop from "./Components/scrollToTop";
 import PageWrapper from "./Components/pageWrapper";
 import StructuredData from "./Components/structuredData";
+import { GoogleAnalytics } from "@next/third-parties/google"
 
 const openSans = Open_Sans({
   variable: "--font-openSans",
@@ -106,6 +107,8 @@ export default function RootLayout({ children }) {
             <ScrollToTop />
           </PageWrapper>
         </ApiProvider>
+
+        <GoogleAnalytics gald="G-2GFFXNVFHN" />
       </body>
     </html>
   );
