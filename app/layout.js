@@ -76,7 +76,7 @@ export const metadata = {
     authors: [{ name: "Ifeoluwa Oladepo", url: "https://neefex.vercel.app" }],
     creator: "Ifeoluwa Oladepo",
     verification: {
-        google: "your-google-verification-code", // from Google Search Console
+        google: "ZPy-nFsSDHWb4MJh0kg04sRwBbosYhQKCxjVpeC8EKQ",
     }
 };
 
