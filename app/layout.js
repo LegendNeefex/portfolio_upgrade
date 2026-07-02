@@ -78,8 +78,12 @@ export const metadata = {
     creator: "Ifeoluwa Oladepo",
     verification: {
         google: "ZPy-nFsSDHWb4MJh0kg04sRwBbosYhQKCxjVpeC8EKQ",
+        other: {
+          "msvalidate.01" : "BC4A250AA69FC49D0C91B3E18B4C37F6"
+        }
     }
 };
+
 
 export const viewport = {
   width: "device-width",
