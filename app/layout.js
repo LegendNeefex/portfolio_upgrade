@@ -4,7 +4,7 @@ import { ApiProvider } from "./Context/stateHandler";
 import ScrollToTop from "./Components/scrollToTop";
 import PageWrapper from "./Components/pageWrapper";
 import StructuredData from "./Components/structuredData";
-import { GoogleAnalytics } from "@next/third-parties/google"
+import script from "next/script";
 
 const openSans = Open_Sans({
   variable: "--font-openSans",
@@ -108,7 +108,24 @@ export default function RootLayout({ children }) {
           </PageWrapper>
         </ApiProvider>
 
-        <GoogleAnalytics gald="G-2GFFXNVFHN" />
+
+        <script 
+          async 
+          
+          src="https://www.googletagmanager.com/gtag/js?id=G-2GFFXNVFHN"
+          strategy="afterInteractive"
+        />
+        <script id="google-analytics" strategy="afterInteractive">
+          {
+            `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+
+              gtag('config', 'G-2GFFXNVFHN');
+            `
+          } 
+        </script>
       </body>
     </html>
   );
